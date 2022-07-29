@@ -1,6 +1,8 @@
 package com.apiDeFilmes.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.apiDeFilmes.enums.ClassificacaoIndicativa;
@@ -15,6 +17,7 @@ public class PerfilEControleParental implements Serializable {
 	private String imagemURL;
 	
 	private Conta conta;
+	private List<Filme> filmes = new ArrayList<>(); 
 
 	public PerfilEControleParental(String nome, String email, ClassificacaoIndicativa restricaoEtaria,
 			String imagemURL) {
@@ -58,6 +61,10 @@ public class PerfilEControleParental implements Serializable {
 
 	public Conta getConta() {
 		return conta;
+	}
+
+	public List<Filme> getFilmes() {
+		return filmes;
 	}
 
 	@Override
