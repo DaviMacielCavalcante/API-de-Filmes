@@ -12,19 +12,23 @@ public class Conta implements Serializable {
 	
 	private Integer id;
 	private Plano tipoPlano;
-	private AssinaturaECobranca assECobr;
+	private String email;
+	private String senha;
+	private String telefone;
 	
 	private Set<Pagamento> pagamentos = new HashSet<Pagamento>();
 
 	private Set<PerfilEControleParental> perfis = new HashSet<PerfilEControleParental>();
 	
 	public Conta() {		
-	}
+	}	
 
-	public Conta(Integer id, Plano tipoPlano, AssinaturaECobranca assECobr) {
-		this.id = id;
+	public Conta(Plano tipoPlano, String email, String senha, String telefone, Set<Pagamento> pagamentos) {
 		this.tipoPlano = tipoPlano;
-		this.assECobr = assECobr;
+		this.email = email;
+		this.senha = senha;
+		this.telefone = telefone;
+		this.pagamentos = pagamentos;
 	}
 
 	public Integer getId() {
@@ -43,20 +47,44 @@ public class Conta implements Serializable {
 		this.tipoPlano = tipoPlano;
 	}
 
-	public AssinaturaECobranca getAssECobr() {
-		return assECobr;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setAssECobr(AssinaturaECobranca assECobr) {
-		this.assECobr = assECobr;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 	public Set<Pagamento> getPagamentos() {
 		return pagamentos;
 	}
 
+	public void setPagamentos(Set<Pagamento> pagamentos) {
+		this.pagamentos = pagamentos;
+	}
+
 	public Set<PerfilEControleParental> getPerfis() {
 		return perfis;
+	}
+
+	public void setPerfis(Set<PerfilEControleParental> perfis) {
+		this.perfis = perfis;
 	}
 
 	@Override
