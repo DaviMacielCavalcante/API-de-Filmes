@@ -25,7 +25,17 @@ public class PerfilEControleParental implements Serializable {
 		this.email = email;
 		RestricaoEtaria = restricaoEtaria;
 		this.imagemURL = imagemURL;
+	}	
+
+	public Integer getId() {
+		return id;
 	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 
 	public String getNome() {
 		return nome;

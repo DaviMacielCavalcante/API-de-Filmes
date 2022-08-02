@@ -26,6 +26,18 @@ public class Pagamento implements Serializable {
 		this.conta = conta;
 	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setDatacobranca(Date datacobranca) {
+		this.datacobranca = datacobranca;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
+	}
+
 	public String getNumeroCartao() {
 		return numeroCartao;
 	}
