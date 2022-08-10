@@ -13,7 +13,7 @@ public class PerfilEControleParental implements Serializable {
 	private Integer id;
 	private String nome;
 	private String email;
-	private ClassificacaoIndicativa RestricaoEtaria;
+	private Integer RestricaoEtaria;
 	private String imagemURL;
 	
 	private Conta conta;
@@ -23,7 +23,7 @@ public class PerfilEControleParental implements Serializable {
 			String imagemURL) {
 		this.nome = nome;
 		this.email = email;
-		RestricaoEtaria = restricaoEtaria;
+		RestricaoEtaria = restricaoEtaria.getCod();
 		this.imagemURL = imagemURL;
 	}	
 
@@ -54,11 +54,11 @@ public class PerfilEControleParental implements Serializable {
 	}
 
 	public ClassificacaoIndicativa getRestricaoEtaria() {
-		return RestricaoEtaria;
+		return ClassificacaoIndicativa.toEnum(RestricaoEtaria);
 	}
 
 	public void setRestricaoEtaria(ClassificacaoIndicativa restricaoEtaria) {
-		RestricaoEtaria = restricaoEtaria;
+		RestricaoEtaria = restricaoEtaria.getCod();
 	}
 
 	public String getImagemURL() {

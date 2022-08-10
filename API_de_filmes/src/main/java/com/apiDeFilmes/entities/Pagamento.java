@@ -12,7 +12,7 @@ public class Pagamento implements Serializable {
 	private Integer id;
 	private String numeroCartao;
 	private Date datacobranca;
-	private Cartao tipoCartao;
+	private Integer tipoCartao;
 	
 	private Conta conta;
 	
@@ -22,7 +22,7 @@ public class Pagamento implements Serializable {
 	public Pagamento(String numeroCartao, Date datacobranca, Cartao tipoCartao, Conta conta) {
 		this.numeroCartao = numeroCartao;
 		this.datacobranca = datacobranca;
-		this.tipoCartao = tipoCartao;
+		this.tipoCartao = tipoCartao.getCod();
 		this.conta = conta;
 	}
 
@@ -47,11 +47,11 @@ public class Pagamento implements Serializable {
 	}
 
 	public Cartao getTipoCartao() {
-		return tipoCartao;
+		return Cartao.toEnum(tipoCartao);
 	}
 
 	public void setTipoCartao(Cartao tipoCartao) {
-		this.tipoCartao = tipoCartao;
+		this.tipoCartao = tipoCartao.getCod();
 	}
 
 	public Integer getId() {

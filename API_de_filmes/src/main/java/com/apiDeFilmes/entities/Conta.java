@@ -11,7 +11,7 @@ public class Conta implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private Plano tipoPlano;
+	private Integer tipoPlano;
 	private String email;
 	private String senha;
 	private String telefone;
@@ -24,7 +24,7 @@ public class Conta implements Serializable {
 	}	
 
 	public Conta(Plano tipoPlano, String email, String senha, String telefone, Set<Pagamento> pagamentos) {
-		this.tipoPlano = tipoPlano;
+		this.tipoPlano = tipoPlano.getCod();
 		this.email = email;
 		this.senha = senha;
 		this.telefone = telefone;
@@ -40,11 +40,11 @@ public class Conta implements Serializable {
 	}
 
 	public Plano getTipoPlano() {
-		return tipoPlano;
+		return Plano.toEnum(tipoPlano);
 	}
 
 	public void setTipoPlano(Plano tipoPlano) {
-		this.tipoPlano = tipoPlano;
+		this.tipoPlano = tipoPlano.getCod();
 	}
 
 	public String getEmail() {
