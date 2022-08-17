@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,8 +28,14 @@ public class Filme implements Serializable {
 	private Integer ano;
 	private Double duracao;
 	private String sinopse;
+	
+	@Column(name = "faixa_etaria")
 	private Integer faixaEtaria;
+	
+	@Column(name = "trailer_url")
 	private String trailerURL;
+	
+	@Column(name = "img_poster_url")
 	private String imgPosterURL;
 	
 	@ManyToMany
@@ -52,6 +59,7 @@ public class Filme implements Serializable {
 	private Set<Genero> generos = new HashSet<>();
 	
 	@ManyToOne
+	@Column(name = "id_perfis")
 	private Set<PerfilEControleParental> perfis = new HashSet<>();
 	
 	public Filme() {		

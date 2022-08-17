@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,11 @@ public class PerfilEControleParental implements Serializable {
 	
 	private String nome;
 	private String email;
+	
+	@Column(name = "restricao_etaria")
 	private Integer RestricaoEtaria;
+	
+	@Column(name = "imagem_url")
 	private String imagemURL;
 	
 	@ManyToOne
