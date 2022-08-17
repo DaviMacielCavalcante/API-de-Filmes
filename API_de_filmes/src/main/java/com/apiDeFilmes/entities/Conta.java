@@ -5,19 +5,32 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import com.apiDeFilmes.enums.Plano;
 
+@Entity
+@Table(name = "conta")
 public class Conta implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer tipoPlano;
 	private String email;
 	private String senha;
 	private String telefone;
 	
+	@OneToMany
 	private Set<Pagamento> pagamentos = new HashSet<Pagamento>();
 
+	@OneToMany
 	private Set<PerfilEControleParental> perfis = new HashSet<PerfilEControleParental>();
 	
 	public Conta() {		

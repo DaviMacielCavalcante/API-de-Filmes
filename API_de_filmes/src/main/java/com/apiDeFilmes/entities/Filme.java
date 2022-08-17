@@ -5,9 +5,20 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "filmes")
 public class Filme implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String titulo;
 	private Integer ano;
@@ -22,6 +33,7 @@ public class Filme implements Serializable {
 	private Set<Roteirista> roteiro = new HashSet<>();
 	private Set<Genero> generos = new HashSet<>();
 	
+	@ManyToOne
 	private Set<PerfilEControleParental> perfis = new HashSet<>();
 	
 	public Filme() {		
