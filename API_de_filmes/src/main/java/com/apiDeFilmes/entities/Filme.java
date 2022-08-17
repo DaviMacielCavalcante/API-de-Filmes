@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -28,9 +31,24 @@ public class Filme implements Serializable {
 	private String trailerURL;
 	private String imgPosterURL;
 	
+	@ManyToMany
+	@JoinTable(name = "filmes_diretores", joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "id_diretores", referencedColumnName = "id"))
 	private Set<Diretor> direcao = new HashSet<>();
+	
+	@ManyToMany
+	@JoinTable(name = "filmes_atores", joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "id_atores", referencedColumnName = "id"))	
 	private Set<Ator> elenco = new HashSet<>();
+	
+	@ManyToMany
+	@JoinTable(name = "filmes_roteiristas", joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "id_roteiristas", referencedColumnName = "id"))	
 	private Set<Roteirista> roteiro = new HashSet<>();
+	
+	@ManyToMany
+	@JoinTable(name = "filmes_diretores", joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "id_diretores", referencedColumnName = "id"))	
 	private Set<Genero> generos = new HashSet<>();
 	
 	@ManyToOne
