@@ -12,7 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+
+import org.springframework.data.relational.core.mapping.Table;
 
 import com.apiDeFilmes.enums.ClassificacaoIndicativa;
 
@@ -38,7 +39,11 @@ public class PerfilEControleParental implements Serializable {
 	private Conta conta;
 	
 	@OneToMany
-	private List<Filme> filmes = new ArrayList<>(); 
+	private List<Filmes> filmes = new ArrayList<>(); 
+	
+	public PerfilEControleParental() {
+		
+	}
 
 	public PerfilEControleParental(String nome, String email, ClassificacaoIndicativa restricaoEtaria,
 			String imagemURL) {
@@ -94,7 +99,7 @@ public class PerfilEControleParental implements Serializable {
 		return conta;
 	}
 
-	public List<Filme> getFilmes() {
+	public List<Filmes> getFilmes() {
 		return filmes;
 	}
 

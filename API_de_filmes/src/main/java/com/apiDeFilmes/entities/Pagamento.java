@@ -10,7 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
+import org.springframework.data.relational.core.mapping.Table;
 
 import com.apiDeFilmes.enums.Cartao;
 

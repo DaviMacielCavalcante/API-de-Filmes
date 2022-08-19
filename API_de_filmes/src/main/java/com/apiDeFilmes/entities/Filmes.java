@@ -1,9 +1,9 @@
 package com.apiDeFilmes.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
+import org.springframework.data.relational.core.mapping.Table;
+
 
 @Entity
 @Table(name = "filmes")
-public class Filme implements Serializable {
+public class Filmes implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -41,31 +43,30 @@ public class Filme implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "filmes_diretores", joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name = "id_diretores", referencedColumnName = "id"))
-	private Set<Diretor> direcao = new HashSet<>();
+	private List<Diretor> diretor = new ArrayList<>();
 	
 	@ManyToMany
 	@JoinTable(name = "filmes_atores", joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name = "id_atores", referencedColumnName = "id"))	
-	private Set<Ator> elenco = new HashSet<>();
+	private List<Ator> ator = new ArrayList<>();
 	
 	@ManyToMany
 	@JoinTable(name = "filmes_roteiristas", joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name = "id_roteiristas", referencedColumnName = "id"))	
-	private Set<Roteirista> roteiro = new HashSet<>();
+	private List<Roteirista> roteirista = new ArrayList<>();
 	
 	@ManyToMany
-	@JoinTable(name = "filmes_diretores", joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
-	inverseJoinColumns = @JoinColumn(name = "id_diretores", referencedColumnName = "id"))	
-	private Set<Genero> generos = new HashSet<>();
+	@JoinTable(name = "filmes_generos", joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "id_generos", referencedColumnName = "id"))	
+	private List<Genero> genero = new ArrayList<>();
 	
-	@ManyToOne
-	@Column(name = "id_perfis")
-	private Set<PerfilEControleParental> perfis = new HashSet<>();
+	@ManyToOne	
+	private PerfilEControleParental id_perfis;
 	
-	public Filme() {		
+	public Filmes() {		
 	}
 
-	public Filme(String titulo, Integer ano, Double duracao, String sinopse, Integer faixaEtaria, String trailerURL,
+	public Filmes(String titulo, Integer ano, Double duracao, String sinopse, Integer faixaEtaria, String trailerURL,
 			String imgPosterURL) {
 		this.titulo = titulo;
 		this.ano = ano;
@@ -140,24 +141,24 @@ public class Filme implements Serializable {
 		this.imgPosterURL = imgPosterURL;
 	}
 
-	public Set<Diretor> getDirecao() {
-		return direcao;
+	public List<Diretor> getDirecao() {
+		return diretor;
 	}
 
-	public Set<Ator> getElenco() {
-		return elenco;
+	public List<Ator> getElenco() {
+		return ator;
 	}
 
-	public Set<Roteirista> getRoteiro() {
-		return roteiro;
+	public List<Roteirista> getRoteiro() {
+		return roteirista;
 	}
 
-	public Set<Genero> getGeneros() {
-		return generos;
+	public List<Genero> getGeneros() {
+		return genero;
 	}
 
-	public Set<PerfilEControleParental> getPerfis() {
-		return perfis;
+	public PerfilEControleParental getPerfis() {
+		return id_perfis;
 	}
 
 	@Override
@@ -173,7 +174,7 @@ public class Filme implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Filme other = (Filme) obj;
+		Filmes other = (Filmes) obj;
 		return Objects.equals(id, other.id);
 	}	
 }

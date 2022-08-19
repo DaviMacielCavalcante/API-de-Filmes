@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.apiDeFilmes.entities.Filme;
+import com.apiDeFilmes.entities.Filmes;
 import com.apiDeFilmes.services.FilmeService;
 
 @RestController
@@ -25,16 +25,16 @@ public class FilmeResource {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id){
 		
-		Filme filme = service.find(id);
+		Filmes filme = service.find(id);
 		
 		return ResponseEntity.ok().body(filme);
 		
 	}
 	
-	@RequestMapping(value = "/filmes", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> findAll(){
 		
-		List<Filme> filme = service.findAll();
+		List<Filmes> filme = service.findAll();
 		
 		return ResponseEntity.ok().body(filme);
 		
@@ -43,7 +43,7 @@ public class FilmeResource {
 	@RequestMapping(value = "/titulo/{titulo}", method = RequestMethod.GET)
 	public ResponseEntity<?> findByTitulo(@PathVariable String titulo){
 		
-		List<Filme> filme = service.findByTitulo(titulo);
+		List<Filmes> filme = service.findByTitulo(titulo);
 		
 		return ResponseEntity.ok().body(filme);
 		
@@ -52,7 +52,7 @@ public class FilmeResource {
 	@RequestMapping(value = "/genero/{genero}", method = RequestMethod.GET)
 	public ResponseEntity<?> findByGenero(@PathVariable String genero){
 		
-		List<Filme> filme = service.findByTitulo(genero);
+		List<Filmes> filme = service.findByTitulo(genero);
 		
 		return ResponseEntity.ok().body(filme);
 		
@@ -61,7 +61,7 @@ public class FilmeResource {
 	@RequestMapping(value = "/diretor/{diretor}", method = RequestMethod.GET)
 	public ResponseEntity<?> findByDiretor(@PathVariable String diretor){
 		
-		List<Filme> filme = service.findByTitulo(diretor);
+		List<Filmes> filme = service.findByTitulo(diretor);
 		
 		return ResponseEntity.ok().body(filme);
 		
@@ -70,7 +70,7 @@ public class FilmeResource {
 	@RequestMapping(value = "/rotei/{rotei}", method = RequestMethod.GET)
 	public ResponseEntity<?> findByRoteirista(@PathVariable String rotei){
 		
-		List<Filme> filme = service.findByTitulo(rotei);
+		List<Filmes> filme = service.findByTitulo(rotei);
 		
 		return ResponseEntity.ok().body(filme);
 		
@@ -79,14 +79,14 @@ public class FilmeResource {
 	@RequestMapping(value = "/ator/{ator}", method = RequestMethod.GET)
 	public ResponseEntity<?> findByAtor(@PathVariable String ator){
 		
-		List<Filme> filme = service.findByTitulo(ator);
+		List<Filmes> filme = service.findByTitulo(ator);
 		
 		return ResponseEntity.ok().body(filme);
 		
 	}	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insert(@RequestBody Filme filme){
+	public ResponseEntity<?> insert(@RequestBody Filmes filme){
 		
 		filme = service.insert(filme);
 		
@@ -96,7 +96,7 @@ public class FilmeResource {
 	}
 	
 	@RequestMapping(value = "/{id}" ,method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@RequestBody Filme filme, @PathVariable Integer id){
+	public ResponseEntity<?> update(@RequestBody Filmes filme, @PathVariable Integer id){
 		
 		filme.setId(id);
 		

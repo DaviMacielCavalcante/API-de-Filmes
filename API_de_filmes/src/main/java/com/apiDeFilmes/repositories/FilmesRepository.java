@@ -7,21 +7,21 @@ import org.springframework.stereotype.Repository;
 
 import com.apiDeFilmes.entities.Ator;
 import com.apiDeFilmes.entities.Diretor;
-import com.apiDeFilmes.entities.Filme;
+import com.apiDeFilmes.entities.Filmes;
 import com.apiDeFilmes.entities.Genero;
 import com.apiDeFilmes.entities.Roteirista;
 
 @Repository
-public interface FilmeRepository extends JpaRepository<Filme, Integer> {
+public interface FilmesRepository extends JpaRepository<Filmes, Integer>{
 
-	List<Filme> findByTitulo(String titulo);
+	List<Filmes> findByTitulo(String titulo);
 	
-	List<Filme> findByGenero(Genero genero);
+	List<Filmes> findByGenero(Genero genero);
 	
-	List<Filme> findByDiretor(Diretor diretor);
+	List<Filmes> findByDiretor(Diretor diretor);
 	
-	List<Filme> findByRoteirista(Roteirista diretor);
+	List<Filmes> findByRoteirista(Roteirista diretor);
 	
-	List<Filme> findByAtor(Ator ator);
+	List<Filmes> findByAtor(Ator ator);
 
 }

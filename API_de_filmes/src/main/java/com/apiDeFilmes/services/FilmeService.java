@@ -9,61 +9,61 @@ import org.springframework.stereotype.Service;
 
 import com.apiDeFilmes.entities.Ator;
 import com.apiDeFilmes.entities.Diretor;
-import com.apiDeFilmes.entities.Filme;
+import com.apiDeFilmes.entities.Filmes;
 import com.apiDeFilmes.entities.Genero;
 import com.apiDeFilmes.entities.Roteirista;
-import com.apiDeFilmes.repositories.FilmeRepository;
+import com.apiDeFilmes.repositories.FilmesRepository;
 
 @Service
 public class FilmeService {
 
 	@Autowired
-	private FilmeRepository repository;
+	private FilmesRepository repository;
 	
-	public Filme find(Integer id) {
-		Optional<Filme> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!Id: " + id, "Tipo: " + Filme.class.getName()));
+	public Filmes find(Integer id) {
+		Optional<Filmes> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!Id: " + id, "Tipo: " + Filmes.class.getName()));
 	}
 	
 	
-	public Filme insert(Filme obj) {
+	public Filmes insert(Filmes obj) {
 		obj.setId(null);
 		obj = repository.save(obj);
 		return repository.save(obj);
 	}
 	
-	public Filme update(Integer id, Filme obj) {
-		Filme newObj = find(obj.getId());
+	public Filmes update(Integer id, Filmes obj) {
+		Filmes newObj = find(obj.getId());
 		updateData(newObj, obj);
 		return repository.save(newObj);
 	}
 	
-	public List<Filme> findAll(){
+	public List<Filmes> findAll(){
 		return repository.findAll();
 	}
 	
-	public List<Filme> findByTitulo(String titulo){
-		List<Filme> filmes = repository.findByTitulo(titulo);
+	public List<Filmes> findByTitulo(String titulo){
+		List<Filmes> filmes = repository.findByTitulo(titulo);
 		return filmes;
 	}
 	
-	public List<Filme> findByGenero(Genero genero){
-		List<Filme> filmes = repository.findByGenero(genero);
+	public List<Filmes> findByGenero(Genero genero){
+		List<Filmes> filmes = repository.findByGenero(genero);
 		return filmes;
 	}
 	
-	public List<Filme> findByDiretor(Diretor diretor){
-		List<Filme> filmes = repository.findByDiretor(diretor);
+	public List<Filmes> findByDiretor(Diretor diretor){
+		List<Filmes> filmes = repository.findByDiretor(diretor);
 		return filmes;
 	}
 	
-	public List<Filme> findByRoteirista(Roteirista roteirista){
-		List<Filme> filmes = repository.findByRoteirista(roteirista);
+	public List<Filmes> findByRoteirista(Roteirista roteirista){
+		List<Filmes> filmes = repository.findByRoteirista(roteirista);
 		return filmes;
 	}
 
-	public List<Filme> findByAtor(Ator ator){
-		List<Filme> filmes = repository.findByAtor(ator);
+	public List<Filmes> findByAtor(Ator ator){
+		List<Filmes> filmes = repository.findByAtor(ator);
 		return filmes;
 	}
 	
@@ -72,7 +72,7 @@ public class FilmeService {
 		repository.deleteById(id);		
 	}
 
-	private void updateData(Filme newObj, Filme obj) {
+	private void updateData(Filmes newObj, Filmes obj) {
 		newObj.setTitulo(obj.getTitulo());	
 		newObj.setAno(obj.getAno());
 		newObj.setDuracao(obj.getDuracao());
