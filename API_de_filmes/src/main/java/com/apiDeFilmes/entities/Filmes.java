@@ -13,13 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
-import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.stereotype.Component;
 
 
 @Entity
-@Table(name = "filmes")
+@Component("filmes")
 public class Filmes implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -58,10 +57,12 @@ public class Filmes implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "filmes_generos", joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name = "id_generos", referencedColumnName = "id"))	
-	private List<Genero> genero = new ArrayList<>();
+	private List<Genero> genero = new ArrayList<>();	
 	
-	@ManyToOne	
-	private PerfilEControleParental id_perfis;
+	@ManyToMany
+	@JoinTable(name = "filmes_perfil",joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "id_perfis", referencedColumnName = "id"))	
+	private List<perfil_e_controle_parental> perfis = new ArrayList<perfil_e_controle_parental>();
 	
 	public Filmes() {		
 	}
@@ -157,8 +158,8 @@ public class Filmes implements Serializable {
 		return genero;
 	}
 
-	public PerfilEControleParental getPerfis() {
-		return id_perfis;
+	public List<perfil_e_controle_parental> getPerfis() {
+		return perfis;
 	}
 
 	@Override

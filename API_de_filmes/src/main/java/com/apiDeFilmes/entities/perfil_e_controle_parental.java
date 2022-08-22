@@ -10,45 +10,53 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
-import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.stereotype.Component;
 
 import com.apiDeFilmes.enums.ClassificacaoIndicativa;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "perfil_e_controle_parental")
-public class PerfilEControleParental implements Serializable {
+@Component("perfil_e_controle_parental")
+public class perfil_e_controle_parental implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String nome;
-	private String email;
+	@Column(name = "nome")
+	private String nome;	
 	
 	@Column(name = "restricao_etaria")
 	private Integer RestricaoEtaria;
 	
 	@Column(name = "imagem_url")
-	private String imagemURL;
+	private String imagemURL;			
 	
-	@ManyToOne
-	private Conta conta;
+	@JsonManagedReference
+	@ManyToMany	
+	@JoinTable(name = "conta_perfil",joinColumns = @JoinColumn(name = "id_perfis", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "id_conta", referencedColumnName = "id"))
+	private List<Conta> conta = new ArrayList<>();
 	
-	@OneToMany
+	@JsonIgnore
+	@ManyToMany	
+	@JoinTable(name = "filmes_perfil",joinColumns = @JoinColumn(name = "id_perfis", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"))
 	private List<Filmes> filmes = new ArrayList<>(); 
 	
-	public PerfilEControleParental() {
+	public perfil_e_controle_parental() {
 		
 	}
 
-	public PerfilEControleParental(String nome, String email, ClassificacaoIndicativa restricaoEtaria,
+	public perfil_e_controle_parental(String nome, ClassificacaoIndicativa restricaoEtaria,
 			String imagemURL) {
-		this.nome = nome;
-		this.email = email;
+		this.nome = nome;		
 		RestricaoEtaria = restricaoEtaria.getCod();
 		this.imagemURL = imagemURL;
 	}	
@@ -69,15 +77,7 @@ public class PerfilEControleParental implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	}	
 
 	public ClassificacaoIndicativa getRestricaoEtaria() {
 		return ClassificacaoIndicativa.toEnum(RestricaoEtaria);
@@ -95,7 +95,7 @@ public class PerfilEControleParental implements Serializable {
 		this.imagemURL = imagemURL;
 	}
 
-	public Conta getConta() {
+	public List<Conta> getConta() {
 		return conta;
 	}
 
@@ -116,7 +116,7 @@ public class PerfilEControleParental implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PerfilEControleParental other = (PerfilEControleParental) obj;
+		perfil_e_controle_parental other = (perfil_e_controle_parental) obj;
 		return Objects.equals(id, other.id) && Objects.equals(nome, other.nome);
 	}	
 }

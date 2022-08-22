@@ -1,7 +1,9 @@
 package com.apiDeFilmes.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,14 +11,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
-import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.stereotype.Component;
 
 import com.apiDeFilmes.enums.Cartao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
-@Table(name = "pagamento")
+@Component("pagamento")
 public class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -33,17 +39,19 @@ public class Pagamento implements Serializable {
 	@Column(name = "tipo_cartao")
 	private Integer tipoCartao;
 	
-	@ManyToOne
-	private Conta conta;
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "conta_pagamento",joinColumns = @JoinColumn(name = "id_conta", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "id_pagamento", referencedColumnName = "id"))
+	private List<Conta> conta = new ArrayList<Conta>();
 	
 	public Pagamento() {		
 	}
 
-	public Pagamento(String numeroCartao, Date datacobranca, Cartao tipoCartao, Conta conta) {
+	public Pagamento(String numeroCartao, Date datacobranca, Cartao tipoCartao) {
 		this.numeroCartao = numeroCartao;
 		this.datacobranca = datacobranca;
-		this.tipoCartao = tipoCartao.getCod();
-		this.conta = conta;
+		this.tipoCartao = tipoCartao.getCod();		
 	}
 
 	public void setId(Integer id) {
@@ -54,7 +62,7 @@ public class Pagamento implements Serializable {
 		this.datacobranca = datacobranca;
 	}
 
-	public void setConta(Conta conta) {
+	public void setConta(List<Conta> conta) {
 		this.conta = conta;
 	}
 
@@ -82,7 +90,7 @@ public class Pagamento implements Serializable {
 		return datacobranca;
 	}
 
-	public Conta getConta() {
+	public List<Conta> getConta() {
 		return conta;
 	}
 

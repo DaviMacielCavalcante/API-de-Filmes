@@ -1,23 +1,26 @@
 package com.apiDeFilmes.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
-import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.stereotype.Component;
 
 import com.apiDeFilmes.enums.Plano;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "conta")
+@Component("conta")
 public class Conta implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -29,18 +32,23 @@ public class Conta implements Serializable {
 	private Integer tipoPlano;
 	private String email;
 	private String senha;
-	private String telefone;
+	private String telefone;	
 	
-	@OneToMany
-	private Set<Pagamento> pagamentos = new HashSet<Pagamento>();
-
-	@OneToMany
-	private Set<PerfilEControleParental> perfis = new HashSet<PerfilEControleParental>();
+	@ManyToMany
+	@JoinTable(name = "conta_pagamento",joinColumns = @JoinColumn(name = "id_conta", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "id_pagamento", referencedColumnName = "id"))
+	private List<Pagamento> pagamentos = new ArrayList<Pagamento>();		
+	
+	@JsonBackReference
+	@ManyToMany	
+	@JoinTable(name = "conta_perfil",joinColumns = @JoinColumn(name = "id_perfis", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "id_conta", referencedColumnName = "id"))
+	private List<perfil_e_controle_parental> perfil = new ArrayList<>();
 	
 	public Conta() {		
 	}	
 
-	public Conta(Plano tipoPlano, String email, String senha, String telefone, Set<Pagamento> pagamentos) {
+	public Conta(Plano tipoPlano, String email, String senha, String telefone, List<Pagamento> pagamentos) {
 		this.tipoPlano = tipoPlano.getCod();
 		this.email = email;
 		this.senha = senha;
@@ -88,20 +96,20 @@ public class Conta implements Serializable {
 		this.telefone = telefone;
 	}
 
-	public Set<Pagamento> getPagamentos() {
+	public List<Pagamento> getPagamentos() {
 		return pagamentos;
 	}
 
-	public void setPagamentos(Set<Pagamento> pagamentos) {
+	public void setPagamentos(List<Pagamento> pagamentos) {
 		this.pagamentos = pagamentos;
 	}
 
-	public Set<PerfilEControleParental> getPerfis() {
-		return perfis;
+	public List<perfil_e_controle_parental> getPerfis() {
+		return perfil;
 	}
 
-	public void setPerfis(Set<PerfilEControleParental> perfis) {
-		this.perfis = perfis;
+	public void setPerfis(List<perfil_e_controle_parental> perfis) {
+		this.perfil = perfis;
 	}
 
 	@Override
