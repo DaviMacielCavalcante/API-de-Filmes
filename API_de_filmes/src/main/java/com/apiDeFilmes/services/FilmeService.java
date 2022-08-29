@@ -18,7 +18,7 @@ import com.apiDeFilmes.repositories.FilmesRepository;
 public class FilmeService {
 
 	@Autowired
-	private FilmesRepository repository;
+	private FilmesRepository repository;		
 	
 	public Filmes find(Integer id) {
 		Optional<Filmes> obj = repository.findById(id);
@@ -47,7 +47,7 @@ public class FilmeService {
 		return filmes;
 	}
 	
-	public List<Filmes> findByGenero(Genero genero){
+	public List<Filmes> findByGenero(Genero genero){		
 		List<Filmes> filmes = repository.findByGenero(genero);
 		return filmes;
 	}

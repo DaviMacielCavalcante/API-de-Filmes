@@ -14,15 +14,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import org.springframework.stereotype.Component;
+import javax.persistence.Table;
 
 import com.apiDeFilmes.enums.Cartao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Component("pagamento")
+@Table(name = "pagamento")
 public class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 

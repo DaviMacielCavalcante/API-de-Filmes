@@ -1,19 +1,25 @@
 package com.apiDeFilmes.resources;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.apiDeFilmes.entities.Ator;
+import com.apiDeFilmes.entities.Diretor;
 import com.apiDeFilmes.entities.Filmes;
+import com.apiDeFilmes.entities.Genero;
+import com.apiDeFilmes.entities.Roteirista;
+import com.apiDeFilmes.services.AtorService;
+import com.apiDeFilmes.services.DiretorService;
 import com.apiDeFilmes.services.FilmeService;
+import com.apiDeFilmes.services.GeneroService;
+import com.apiDeFilmes.services.RoteiristaService;
 
 @RestController
 @RequestMapping(value = "/filmes")
@@ -21,6 +27,18 @@ public class FilmeResource {
 
 	@Autowired
 	private FilmeService service;
+	
+	@Autowired
+	private DiretorService dirServ;	
+	
+	@Autowired
+	private GeneroService gerServ;
+	
+	@Autowired
+	private RoteiristaService roteiristaService;
+	
+	@Autowired
+	private AtorService atorService;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id){
@@ -49,67 +67,47 @@ public class FilmeResource {
 		
 	}
 	
-	@RequestMapping(value = "/genero/{genero}", method = RequestMethod.GET)
-	public ResponseEntity<?> findByGenero(@PathVariable String genero){
+	@RequestMapping(value = "/genero/" ,method = RequestMethod.GET)
+	public ResponseEntity<?> findByGenero(@RequestParam(value = "genero", defaultValue = "") String genero){
 		
-		List<Filmes> filme = service.findByTitulo(genero);
+		Genero generoe = gerServ.findByNome(genero);
 		
-		return ResponseEntity.ok().body(filme);
-		
-	}
-	
-	@RequestMapping(value = "/diretor/{diretor}", method = RequestMethod.GET)
-	public ResponseEntity<?> findByDiretor(@PathVariable String diretor){
-		
-		List<Filmes> filme = service.findByTitulo(diretor);
+		List<Filmes> filme = service.findByGenero(generoe);
 		
 		return ResponseEntity.ok().body(filme);
 		
 	}
 	
-	@RequestMapping(value = "/rotei/{rotei}", method = RequestMethod.GET)
-	public ResponseEntity<?> findByRoteirista(@PathVariable String rotei){
+	@RequestMapping(value = "/diretor/", method = RequestMethod.GET)
+	public ResponseEntity<?> findByDiretor(@RequestParam(value = "diretor", defaultValue = "") String diretor){
 		
-		List<Filmes> filme = service.findByTitulo(rotei);
+		Diretor diretore = dirServ.findByNome(diretor);
+		
+		List<Filmes> filme = service.findByDiretor(diretore);
+		
+		return ResponseEntity.ok().body(filme);
+		
+	}
+	
+	@RequestMapping(value = "/rotei/", method = RequestMethod.GET)
+	public ResponseEntity<?> findByRoteirista(@RequestParam String rotei){
+		
+		Roteirista roti = roteiristaService.findByNome(rotei);
+		
+		List<Filmes> filme = service.findByRoteirista(roti);
 		
 		return ResponseEntity.ok().body(filme);
 		
 	}
 	
 	@RequestMapping(value = "/ator/{ator}", method = RequestMethod.GET)
-	public ResponseEntity<?> findByAtor(@PathVariable String ator){
+	public ResponseEntity<?> findByAtor(@RequestParam String ator){
 		
-		List<Filmes> filme = service.findByTitulo(ator);
+		Ator atores = atorService.findByNome(ator);
+		
+		List<Filmes> filme = service.findByAtor(atores);
 		
 		return ResponseEntity.ok().body(filme);
 		
-	}	
-	
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insert(@RequestBody Filmes filme){
-		
-		filme = service.insert(filme);
-		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(filme.getId()).toUri();
-		
-		return ResponseEntity.created(uri).build();
-	}
-	
-	@RequestMapping(value = "/{id}" ,method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@RequestBody Filmes filme, @PathVariable Integer id){
-		
-		filme.setId(id);
-		
-		filme = service.update(id, filme);
-		
-		return ResponseEntity.noContent().build();
-	}
-	
-	@RequestMapping(value = "/{id}" ,method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id){
-		
-		service.delete(id);
-		
-		return ResponseEntity.noContent().build();
-	}
+	}		
 }

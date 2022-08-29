@@ -13,14 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import org.springframework.stereotype.Component;
+import javax.persistence.Table;
 
 import com.apiDeFilmes.enums.Plano;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Component("conta")
+@Table(name = "conta")
 public class Conta implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

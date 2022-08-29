@@ -13,12 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Component("filmes")
+@Table(name = "filmes")
 public class Filmes implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -41,7 +42,7 @@ public class Filmes implements Serializable {
 	
 	@ManyToMany
 	@JoinTable(name = "filmes_diretores", joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
-	inverseJoinColumns = @JoinColumn(name = "id_diretores", referencedColumnName = "id"))
+	inverseJoinColumns = @JoinColumn(name = "id_diretores", referencedColumnName = "id"))	
 	private List<Diretor> diretor = new ArrayList<>();
 	
 	@ManyToMany
@@ -59,6 +60,7 @@ public class Filmes implements Serializable {
 	inverseJoinColumns = @JoinColumn(name = "id_generos", referencedColumnName = "id"))	
 	private List<Genero> genero = new ArrayList<>();	
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "filmes_perfil",joinColumns = @JoinColumn(name = "id_filmes", referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name = "id_perfis", referencedColumnName = "id"))	

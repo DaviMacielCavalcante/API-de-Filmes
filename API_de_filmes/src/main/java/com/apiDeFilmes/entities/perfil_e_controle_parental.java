@@ -13,15 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import org.springframework.stereotype.Component;
+import javax.persistence.Table;
 
 import com.apiDeFilmes.enums.ClassificacaoIndicativa;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Component("perfil_e_controle_parental")
+@Table(name = "perfil_e_controle_parental")
 public class perfil_e_controle_parental implements Serializable {
 	private static final long serialVersionUID = 1L;
 
