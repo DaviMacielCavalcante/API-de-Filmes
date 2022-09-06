@@ -26,7 +26,9 @@ public enum Cartao {
 		}
 		
 		for (Cartao x : Cartao.values()) {
-			return x;
+			if(cod.equals(x.getCod())) {
+				return x;
+			}	
 		}
 		
 		throw new IllegalArgumentException("Id inválido: " + cod);

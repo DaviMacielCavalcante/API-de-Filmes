@@ -28,7 +28,9 @@ public enum ClassificacaoIndicativa {
 		}
 		
 		for (ClassificacaoIndicativa x : ClassificacaoIndicativa.values()) {
-			return x;
+			if(cod.equals(x.getCod())) {
+				return x;
+			}	
 		}
 		
 		throw new IllegalArgumentException("Id inválido: " + cod);
